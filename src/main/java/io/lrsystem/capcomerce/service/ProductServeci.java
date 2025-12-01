@@ -28,4 +28,16 @@ public class ProductServeci {
         return products.map(x -> new ProductDTO(x));
     }
 
+    @Transactional
+    public ProductDTO insert(ProductDTO productDTO) {
+        Product product = new Product();
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setImgUrl(productDTO.getImgUrl());
+        product.setPrice(productDTO.getPrice());
+
+        product = productRepository.save(product);
+        return new ProductDTO(product);
+    }
+
 }
