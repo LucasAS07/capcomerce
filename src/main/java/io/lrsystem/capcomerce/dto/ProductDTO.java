@@ -1,10 +1,6 @@
 package io.lrsystem.capcomerce.dto;
 
 import io.lrsystem.capcomerce.entites.Product;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 public class ProductDTO {
 
@@ -14,7 +10,7 @@ public class ProductDTO {
     private Double price;
     private String imgUrl;
 
-    public ProductDTO () {}
+    public ProductDTO() {}
 
     public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;

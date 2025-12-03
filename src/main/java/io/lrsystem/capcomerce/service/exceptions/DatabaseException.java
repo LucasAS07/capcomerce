@@ -1,0 +1,9 @@
+package io.lrsystem.capcomerce.service.exceptions;
+
+public class DatabaseException extends RuntimeException{
+
+    public DatabaseException(String mensagem) {
+        super(mensagem);
+    }
+
+}
