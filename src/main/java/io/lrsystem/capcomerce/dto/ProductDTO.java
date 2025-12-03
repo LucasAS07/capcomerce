@@ -1,16 +1,29 @@
 package io.lrsystem.capcomerce.dto;
 
 import io.lrsystem.capcomerce.entites.Product;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 
 public class ProductDTO {
 
     private Long id;
+
+    @NotBlank(message = "Campo requerido")
+    @Size(min = 3,max = 80,message = "Tamanho deve ser min 3 max 80")
     private String name;
+
+    @NotBlank(message = "Campo requerido")
+    @Size(min = 10, message = "Descrição precisa ter no minimo 10 caracters")
     private String description;
+
+    @Positive(message = "O preço deve ser positivo")
     private Double price;
     private String imgUrl;
 
-    public ProductDTO() {}
+    public ProductDTO() {
+    }
 
     public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;

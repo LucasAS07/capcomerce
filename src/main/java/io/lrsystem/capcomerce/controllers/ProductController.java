@@ -2,8 +2,7 @@ package io.lrsystem.capcomerce.controllers;
 
 import io.lrsystem.capcomerce.dto.ProductDTO;
 import io.lrsystem.capcomerce.service.ProductService;
-import io.lrsystem.capcomerce.service.exceptions.ResourceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,17 +32,17 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO productDTO) {
         productDTO = productService.insert(productDTO);
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}")
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(productDTO.getId()).toUri();
 
         return ResponseEntity.created(uri).body(productDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO product) {
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO product) {
             product = productService.update(id,product);
 
             return ResponseEntity.ok(product);
