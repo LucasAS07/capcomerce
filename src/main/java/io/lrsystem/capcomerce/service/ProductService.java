@@ -1,8 +1,11 @@
 package io.lrsystem.capcomerce.service;
 
+import io.lrsystem.capcomerce.dto.CategoryDTO;
 import io.lrsystem.capcomerce.dto.ProductDTO;
+import io.lrsystem.capcomerce.dto.ProductMinDTO;
+import io.lrsystem.capcomerce.entites.Category;
 import io.lrsystem.capcomerce.entites.Product;
-import io.lrsystem.capcomerce.repositorys.ProductRepository;
+import io.lrsystem.capcomerce.repositories.ProductRepository;
 import io.lrsystem.capcomerce.service.exceptions.DatabaseException;
 import io.lrsystem.capcomerce.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,10 +31,10 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(Pageable pageable) {
-        Page<Product> products = productRepository.findAll(pageable);
+    public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
+        Page<Product> products = productRepository.searchByName(name,pageable);
 
-        return products.map(x -> new ProductDTO(x));
+        return products.map(x -> new ProductMinDTO(x));
     }
 
     @Transactional
@@ -73,6 +76,13 @@ public class ProductService {
         product.setDescription(productDTO.getDescription());
         product.setImgUrl(productDTO.getImgUrl());
         product.setPrice(productDTO.getPrice());
+
+        product.getCategories().clear();
+        for (CategoryDTO catDTO : productDTO.getCategories()) {
+            Category cat = new Category();
+            cat.setId(catDTO.getId());
+            product.getCategories().add(cat);
+        }
     }
 
 }
