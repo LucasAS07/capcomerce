@@ -138,9 +138,10 @@ public class User implements UserDetails {
     }
 
     public boolean hasRole(String roleName) {
-        for (Role role : roles){
-            if (role.getAuthority().endsWith(roleName));
-            return true;
+        for (Role role : roles) {
+            if (role.getAuthority().equals(roleName)) {
+                return true;
+            }
         }
         return false;
     }

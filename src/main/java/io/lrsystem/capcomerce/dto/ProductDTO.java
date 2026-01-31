@@ -2,10 +2,7 @@ package io.lrsystem.capcomerce.dto;
 
 import io.lrsystem.capcomerce.entites.Category;
 import io.lrsystem.capcomerce.entites.Product;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +20,7 @@ public class ProductDTO {
     @Size(min = 10, message = "Descrição precisa ter no minimo 10 caracters")
     private String description;
 
+    @NotNull(message = "Campo requirido")
     @Positive(message = "O preço deve ser positivo")
     private Double price;
     private String imgUrl;
